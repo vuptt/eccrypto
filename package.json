@@ -5,7 +5,7 @@
   "main": "index.js",
   "browser": "browser.js",
   "scripts": {
-    "install": "node-gyp rebuild || exit 0",
+    "install": "node-pre-gyp install --fallback-to-build",
     "test": "ECCRYPTO_NO_FALLBACK=1 mocha && xvfb-run -a karma start && jshint .",
     "m": "mocha",
     "k": "xvfb-run -a karma start",
@@ -35,7 +35,15 @@
     "url": "https://github.com/bitchan/eccrypto/issues"
   },
   "homepage": "https://github.com/bitchan/eccrypto",
+  "binary": {
+    "module_name": "eccrypto",
+    "module_path": "./lib/binding/bin/",
+    "remote_path": "./builds/v{version}/{platform}/{arch}/{node_abi}",
+    "package_name": "{module_name}.tar.gz",
+    "host": "https://eccrypto.s3-us-west-2.amazonaws.com"
+  },
   "devDependencies": {
+    "aws-sdk": "^2.556.0",
     "browserify": "16.5.0",
     "buffer-equal": "1.0.0",
     "chai": "*",
@@ -53,7 +61,8 @@
     "acorn": "7.1.0",
     "elliptic": "6.5.1",
     "es6-promise": "4.2.8",
-    "nan": "2.14.0"
+    "nan": "2.14.0",
+    "node-pre-gyp": "0.x"
   },
   "optionalDependencies": {
     "secp256k1": "3.7.1"
