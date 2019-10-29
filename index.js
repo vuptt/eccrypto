@@ -4,7 +4,9 @@
  */
 
 "use strict";
-
+var binary = require('node-pre-gyp');
+var path = require('path');
+var binding_path = binary.find(path.resolve(path.join(__dirname,'./package.json')));
 const EC_GROUP_ORDER = Buffer.from('fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141', 'hex');
 const ZERO32 = Buffer.alloc(32, 0);
 
@@ -15,7 +17,7 @@ var crypto = require("crypto");
 // try to use secp256k1, fallback to browser implementation
 try {
   var secp256k1 = require("secp256k1");
-  var ecdh = require("./build/Release/ecdh");
+  var ecdh = require(binding_path);
 } catch (e) {
   if (process.env.ECCRYPTO_NO_FALLBACK) {
     throw e;

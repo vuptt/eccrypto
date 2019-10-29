@@ -7,6 +7,9 @@
   "scripts": {
     "install": "node-pre-gyp install --fallback-to-build",
     "test": "ECCRYPTO_NO_FALLBACK=1 mocha && xvfb-run -a karma start && jshint .",
+    "build": "node-pre-gyp build --target_arch=x64",
+    "package-binary": "node-pre-gyp build package --target_arch=x64",
+    "publish-binary": "node-pre-gyp publish --target_arch=x64",
     "m": "mocha",
     "k": "xvfb-run -a karma start",
     "kc": "xvfb-run -a karma start --browsers Chromium",
@@ -36,7 +39,7 @@
   },
   "homepage": "https://github.com/vuptt/eccrypto",
   "binary": {
-    "module_name": "eccrypto",
+    "module_name": "ecdh",
     "module_path": "./lib/binding/bin/",
     "package_name": "{module_name}-{platform}-{arch}-{node_abi}.tar.gz",
     "host": "https://github.com/vuptt/eccrypto/releases/download/",
@@ -65,6 +68,6 @@
     "node-pre-gyp": "0.x"
   },
   "optionalDependencies": {
-    "secp256k1": "3.7.1"
+    "secp256k1": "github:vuptt/secp256k1-node#node-pre-gyp"
   }
 }
